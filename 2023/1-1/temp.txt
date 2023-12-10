@@ -1,0 +1,46 @@
+    ENVIRONMENT DIVISION.
+       INPUT-OUTPUT section.
+   *specify file used for the program
+              FILE-CONTROL.
+     *select the data in the data file
+               SELECT donnee ASSIGN TO './data.txt'.
+      *select data separately for each line
+               ORGANIZATION IS LINE SEQUENTIAL.
+            
+
+
+            -----------------------------------------
+       IDENTIFICATION DIVISION.
+           program-id. 1-1.
+           date-written. 10.12.2023
+           author. cyco.
+
+       DATA DIVISION.
+           FILE SECTION.
+           FD donnee.
+           01 Input-Line PIC X(50).
+           
+       WORKING-STORAGE SECTION.
+       01 Counter PIC 9(3) VALUE 0.
+
+       PROCEDURE DIVISION.
+           OPEN INPUT donnee
+
+           PERFORM UNTIL Counter >= 10 OR EOF
+               READ donnee
+                   AT END SET EOF TO true
+               END-READ.
+
+               IF NOT EOF 
+                   ADD 1 TO Counter
+                   DISPLAY "Line " Counter ": " Input-Line
+               end-if
+           end-perform.
+
+           CLOSE donnee.
+           STOP. RUN.
+
+
+
+
+           -----------------------------
