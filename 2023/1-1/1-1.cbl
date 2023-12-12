@@ -8,7 +8,7 @@
        77 Last-Numeric-Values PIC 9.
        77 Full-Numeric-Value PIC X(2).
        77 Full-in-numeric PIC 9(2).
-       77 Result PIC 9(2).
+       77 Result PIC 9(5).
        77 Counter PIC 9(3) VALUE 1.
        77 FoundNumericValue PIC X VALUE 'N'.
 
@@ -18,6 +18,12 @@
           2 PIC X(50) TO strvaleur REQUIRED.
 
        PROCEDURE DIVISION.
+
+       perform main-program until strvaleur = 'exit'.
+
+           STOP RUN.
+
+           main-program.
       *Get the value from the user
            ACCEPT s-plg-strvaleur.
       *Get the first and the last numeric value of the string
@@ -31,9 +37,9 @@
       *Add the new value to the result
            ADD Full-in-numeric TO Result.
 
-           DISPLAY Result COL 1.
+           DISPLAY Result COL 5.
 
-           STOP RUN.
+           EXIT.
 
            findval.
                IF strvaleur(Counter:1) IS NUMERIC
